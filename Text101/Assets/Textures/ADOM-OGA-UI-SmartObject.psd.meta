@@ -61,10 +61,10 @@ TextureImporter:
         serializedVersion: 2
         x: 26
         y: 969
-        width: 931
+        width: 839
         height: 260
-      alignment: 9
-      pivot: {x: .444783062, y: .427155942}
+      alignment: 0
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: ADOM-OGA-UI-SmartObject_1
       rect:

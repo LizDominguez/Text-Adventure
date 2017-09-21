@@ -5,6 +5,7 @@ using System.Collections;
 public class ChapterController : MonoBehaviour {
 
 	public Text text;
+	
 
 	// Use this for initialization
 	void Start () {
@@ -16,8 +17,19 @@ public class ChapterController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.GetKeyDown(KeyCode.Space)) {
+		switch (TextController.myState) {
+			
+		case TextController.States.intro:
+			text.text = "Dungeon Crawler";
+			break;
+			
+		case TextController.States.gully:
+			text.text = "The Gully";
+			break;
+
+		default:
 			text.text = "Dungeon Entrance";
+			break;
 		}
 	
 	}
