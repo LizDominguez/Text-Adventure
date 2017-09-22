@@ -7,8 +7,10 @@ public class TextController : MonoBehaviour {
 
 	public Text text;
 
-	public enum States {intro, entrance, gully, door_0, ask_0, gully_lock, ask_1, dungeon};
+	public enum States {intro, entrance, gully, door_0, ask_0, gully_lock, 
+						ask_1, dungeon, stairs, small_door, book, map, sewer};
 	public static States myState;
+	
 
 	// Use this for initialization
 	void Start () {
@@ -23,154 +25,220 @@ public class TextController : MonoBehaviour {
 		switch (myState) {
 
 		case States.intro:
-			state_intro();
+			intro();
 			break;
 
 		case States.entrance:
-			state_entrance();
+			entrance();
 			break;
 
 		case States.door_0:
-			state_door_0();
+			door_0();
 			break;
 
 		case States.ask_0:
-			state_ask_0();
+			ask_0();
 			break;
 
 		case States.gully:
-			state_gully();
+			gully();
 			break;
 
 		case States.gully_lock:
-			state_gully_lock();
+			gully_lock();
 			break;
 
 		case States.ask_1:
-			state_ask_1();
+			ask_1();
 			break;
 
 		case States.dungeon:
-			state_dungeon();
+			dungeon();
 			break;
 
+		case States.stairs:
+			stairs();
+			break;
+
+		case States.small_door:
+			small_door();
+			break;
+
+		case States.book:
+			book();
+			break;
+
+		case States.map:
+			map();
+			break;
+
+		case States.sewer:
+			sewer();
+			break;
+			
 		}
 
 	
 	}
 
 
-	void state_intro() {
+	void intro() {
 		text.text = "Welcome to  the Dungeon Crawler Text Adventure Game!\n\n" +
-					"Press SPACE to begin";
+					"[Press SPACE to begin]";
 
-		if (Input.GetKeyDown(KeyCode.Space)) {
-			myState = States.entrance;
-		}
+
+		if (Input.GetKeyDown(KeyCode.Space)) {myState = States.entrance;}
 
 	}
 
-	void state_entrance() {
+	void entrance() {
 
 			text.text = "You are an adventurer standing before the opening of a cave. " +
 						"The cave is sealed by a large wooden door. " + 
 						"A small stream flows from the caves entrance " +
 						"down a gully.\n\n" +
-						"Press A to ask spirit guides, G to search the gully, I to inspect door";
+						"[Press A to ask spirit guides, G to search the gully, I to inspect door]";
 	
 
-		if (Input.GetKeyDown(KeyCode.A)) {
-			myState = States.ask_0;
-		}
+		if (Input.GetKeyDown(KeyCode.A)) {myState = States.ask_0;}
 
-		if (Input.GetKeyDown(KeyCode.G)) {
-			myState = States.gully;
-		}
+		else if (Input.GetKeyDown(KeyCode.G)) {myState = States.gully;}
 
-		if (Input.GetKeyDown(KeyCode.I)) {
-			myState = States.door_0;
-		}
+		else if (Input.GetKeyDown(KeyCode.I)) {myState = States.door_0;}
 
 	}
 
 
-	void state_door_0() {
+	void door_0() {
 			
-		text.text = "The door is bolted by a silver lock. Scratches line the bottom of the jagged wood. " +
+		text.text = "The door is bolted by a silver lock. " +
+					"Scratches line the bottom of the jagged wood. " +
 					"Odd, it appears like something tried to get out.\n\n" +
-					"Press R to return to dungeon entrace";
+					"[Press R to return to dungeon entrace]";
 			
 			
-		if (Input.GetKeyDown(KeyCode.R)) {
-				myState = States.entrance;
-		}
+		if (Input.GetKeyDown(KeyCode.R)) {myState = States.entrance;}
 			
 	}
 
-	void state_ask_0() {
+	void ask_0() {
 		
 		text.text = "You ask your spirit guides for help. " +
 					"They respond...\n" + 
 					"'Check the gully, duh.'\n\n" +
-					"Press R to return to dungeon entrace";
+					"[Press R to return to dungeon entrace]";
 		
 		
-		if (Input.GetKeyDown(KeyCode.R)) {
-			myState = States.entrance;
-		}
+		if (Input.GetKeyDown(KeyCode.R)) {myState = States.entrance;}
 		
 	}
 
-	void state_gully() {
+	void gully() {
 		
 		text.text = "Peering down the gully, you spot a rusty key jammed between the rocks. " +
 					"This must be the dungeon key.\n\n" +
-					"Press R to return to dungeon entrace and try your luck with the key";
+					"[Press R to return to dungeon entrace and try your luck with the key]";
 		
 		
-		if (Input.GetKeyDown(KeyCode.R)) {
-			myState = States.gully_lock;
-		}
+		if (Input.GetKeyDown(KeyCode.R)) {myState = States.gully_lock;}
 		
 	}
 
-	void state_gully_lock() {
+	void gully_lock() {
 		
 		text.text = "Standing at the opening of the cave, you feel an urge " + 
 					"to contact your spirit guides.\n\n" +
-					"Press A to ask spirit guides, O to pen door";
+					"[Press A to ask spirit guides, O to pen door]";
 		
 		
-		if (Input.GetKeyDown(KeyCode.A)) {
-			myState = States.ask_1;
-		}
+		if (Input.GetKeyDown(KeyCode.A)) {myState = States.ask_1;}
 
-		else if (Input.GetKeyDown(KeyCode.O)) {
-			myState = States.dungeon;
-		}
+		else if (Input.GetKeyDown(KeyCode.O)) {myState = States.dungeon;}
 		
 	}
 
-	void state_ask_1() {
+	void ask_1() {
 		
 		text.text = "Your spirit guide responds...\n " + 
-					"'This dungeon's pretty tough. I feel bad for you, dude. " +
-					"Here, take this sword.'\n\n" +
-					"You acquired a meaningless item\n\n" +
-					"Press R to return to dungeon entrance";
+					"'We can't let you disturb the ritual'\n\n" +
+					"You were stripped of your weapons\n\n" +
+					"[Press R to return to dungeon entrance]";
 		
 		
-		if (Input.GetKeyDown(KeyCode.R)) {
-			myState = States.gully_lock;
-		}
+		if (Input.GetKeyDown(KeyCode.R)) {myState = States.gully_lock;}
 		
 	}
 
-	void state_dungeon() {
+	void dungeon() {
 		
-		text.text = "You step inside the dungeon. " + 
-					"A deep thumping echoes in the distance. ";
+		text.text = "You step inside to discover a well lit dungeon. " + 
+					"A set of stairs lies before you. " + 
+					"To your right is a small door. A deep thumping echoes in the distance. " +
+					"[Press D to descend stairs, O to open door]";
+
+		if (Input.GetKeyDown(KeyCode.D)) {myState = States.stairs;}
+		else if (Input.GetKeyDown(KeyCode.O)) {myState = States.small_door;}
 
 		
 	}
+
+	void stairs() {
+		
+		text.text = "You desced the stairs to find a cloacked figure casting a circle. " +
+					"Surrounding him are dark spirits. " +
+					"They are startled by your footsteps. You better get out before they see you!\n\n" +
+					"[Press R to return]";
+		
+		if (Input.GetKeyDown(KeyCode.R)) {myState = States.dungeon;}
+		
+		
+	}
+
+	void small_door() {
+		
+		text.text = "You slip into the small doorway. Inside is an ancient book,  " + 
+					"a map, and a sewer grate. " +
+					"[Press R to read book, T to take map, or O to open sewer grate]";
+		
+		if (Input.GetKeyDown(KeyCode.R)) {myState = States.book;}
+		else if (Input.GetKeyDown(KeyCode.T)) {myState = States.map;}
+		else if (Input.GetKeyDown(KeyCode.O)) {myState = States.sewer;}
+		
+		
+	}
+
+	void book() {
+		
+		text.text = "You open the old dusty pages and skim... \n" + 
+					"There once lived an evil sorcerer who wanted nothing more than to plunge " +
+					"our world into darkness...\n" +
+					"Before he was sealed away, he vowed to capture the princess " +
+					"and sacrifice her to the darkness; thus, completing the prophecy.\n\n" +
+					"[Press R to return]";
+		
+		if (Input.GetKeyDown(KeyCode.R)) {myState = States.small_door;}
+			
+	}
+
+	void map() {
+		
+		text.text = "Peering at the map you notice a small opening marked along the sewers.\n\n" + 
+					"[Press R to return]";
+		
+		if (Input.GetKeyDown(KeyCode.R)) {myState = States.small_door;}
+		
+	}
+
+	void sewer() {
+		
+		text.text = "You open the grates and slide into knee-deep murky water. " + 
+					"The large sewer rats smell your presence. Just then, you notice " +
+					"a small opening on the sewer walls.\n\n" +
+					"[Press C to continue, S to sneak into the small opening]";
+	
+		
+		
+	}
+	
+	
 }
