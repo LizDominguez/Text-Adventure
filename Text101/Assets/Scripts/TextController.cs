@@ -53,6 +53,7 @@ public class TextController : MonoBehaviour {
 			break;
 
 		case States.dungeon:
+			load_next_level();
 			dungeon();
 			break;
 
@@ -82,7 +83,18 @@ public class TextController : MonoBehaviour {
 	}
 
 
+	void load_next_level() {
+		
+		
+		if(Application.loadedLevel == 0) {
+			Application.LoadLevel("Level2");
+		}
+		
+	}
+
+
 	void intro() {
+
 		text.text = "Welcome to  the Dungeon Crawler Text Adventure Game!\n\n" +
 					"[Press SPACE to begin]";
 
@@ -173,7 +185,7 @@ public class TextController : MonoBehaviour {
 		
 		text.text = "You step inside to discover a well lit dungeon. " + 
 					"A set of stairs lies before you. " + 
-					"To your right is a small door. A deep thumping echoes in the distance. " +
+					"To your right is a small door. A deep thumping echoes in the distance.\n\n" +
 					"[Press D to descend stairs, O to open door]";
 
 		if (Input.GetKeyDown(KeyCode.D)) {myState = States.stairs;}
@@ -197,7 +209,7 @@ public class TextController : MonoBehaviour {
 	void small_door() {
 		
 		text.text = "You slip into the small doorway. Inside is an ancient book,  " + 
-					"a map, and a sewer grate. " +
+					"a map, and a sewer grate.\n\n" +
 					"[Press R to read book, T to take map, or O to open sewer grate]";
 		
 		if (Input.GetKeyDown(KeyCode.R)) {myState = States.book;}

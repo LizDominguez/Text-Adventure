@@ -27,6 +27,20 @@ public class ChapterController : MonoBehaviour {
 			text.text = "The Gully";
 			break;
 
+		case TextController.States.small_door:
+		case TextController.States.book:
+		case TextController.States.map:
+			text.text = "Small Library";
+			break;
+
+		case TextController.States.stairs:
+			text.text = "Main Hall";
+			break;
+
+		case TextController.States.sewer:
+			text.text = "Sewers";
+			break;
+
 		default:
 			text.text = "Dungeon Entrance";
 			break;
