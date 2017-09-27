@@ -8,7 +8,8 @@ public class TextController : MonoBehaviour {
 	public Text text;
 
 	public enum States {intro, entrance, gully, door_0, ask_0, gully_lock, 
-						ask_1, dungeon, stairs, small_door, book, map, sewer};
+		ask_1, dungeon, stairs, small_door, book, map, sewer, small_opening, release_princess,
+		halt_ritual, release_princess1, the_end};
 	public static States myState;
 	
 
@@ -16,6 +17,15 @@ public class TextController : MonoBehaviour {
 	void Start () {
 
 		myState = States.intro;
+
+		if (Application.loadedLevel == 1) {
+			myState = States.dungeon;
+		}
+
+		else if (Application.loadedLevel == 2) {
+			myState = States.release_princess1;
+		}
+
 	
 	}
 	
@@ -53,7 +63,7 @@ public class TextController : MonoBehaviour {
 			break;
 
 		case States.dungeon:
-			load_next_level();
+			load_level2();
 			dungeon();
 			break;
 
@@ -76,6 +86,27 @@ public class TextController : MonoBehaviour {
 		case States.sewer:
 			sewer();
 			break;
+
+		case States.small_opening:
+			small_opening();
+			break;
+		
+		case States.release_princess:
+			release_princess();
+			break;
+
+		case States.halt_ritual:
+			halt_ritual();
+			break;
+
+		case States.release_princess1:
+			load_level3();
+			release_princess1();
+			break;
+
+		case States.the_end:
+			the_end();
+			break;
 			
 		}
 
@@ -83,15 +114,25 @@ public class TextController : MonoBehaviour {
 	}
 
 
-	void load_next_level() {
+	void load_level2() {
 		
 		
-		if(Application.loadedLevel == 0) {
+		if (Application.loadedLevel == 0) {
 			Application.LoadLevel("Level2");
+		}
+
+	}
+
+
+	void load_level3() {
+		
+		
+		if (Application.loadedLevel == 1) {
+			Application.LoadLevel("Level3");
 		}
 		
 	}
-
+	
 
 	void intro() {
 
@@ -248,8 +289,74 @@ public class TextController : MonoBehaviour {
 					"a small opening on the sewer walls.\n\n" +
 					"[Press C to continue, S to sneak into the small opening]";
 	
+		if (Input.GetKeyDown(KeyCode.C)) {myState = States.the_end;}
+		else if (Input.GetKeyDown(KeyCode.S)) {myState = States.small_opening;}
+		
+	}
+
+
+	void small_opening() {
+		
+		text.text = "The small opening leads back to an unlit area of the Ritual Hall. " +
+					"You look to your right and see the Princess chained to the altar.\n" +
+					"You have two options: release the Princess and try to run, or smudge " +
+					"the circle and halt the ritual.\n\n" +
+					"[Press R to release the Princess, H to halt the ritual]";
+		
+		if (Input.GetKeyDown(KeyCode.R)) {myState = States.release_princess;}
+		else if (Input.GetKeyDown(KeyCode.H)) {myState = States.halt_ritual;}
+		
+	}
+
+	void release_princess() {
+		
+		text.text = "You manage to sneak your way to the Princess undetected. " +
+					"As you are unwrapping the chains, she turns her head to your direction. " +
+					"Her eyes are glowing red, a deep laugh escapes her. " +
+					"It appears the Princess is possessed.\n\n" +
+					"[Press R to return quickly]";
+		
+		if (Input.GetKeyDown(KeyCode.R)) {myState = States.small_opening;}
+		
+	}
+
+
+	void halt_ritual() {
+		
+		text.text = "You carefully inch your way towards the circle. " +
+					"Using your sleeves, you smudge away the chalk and create an " +
+					"opening in the circle. " +
+					"The Princess notices you and silently urges you to untie her.\n\n" +
+					"[Press U to untie the Princess]";
+		
+		if (Input.GetKeyDown(KeyCode.U)) {myState = States.release_princess1;}
+		
+	}
+
+
+	void release_princess1() {
+		
+		text.text = "The Princess was saved by your valient efforts. " +
+					"You walk to the village together and start a life anew.\n" +
+					"The dark sorceror was never heard from again.\n\n" +
+					"[Press SPACE to play again]";
+		
+		if (Input.GetKeyDown(KeyCode.Space)) {
+			Application.LoadLevel("Level1");
+		}
+		
+	}
+
+	void the_end() {
+		
+		text.text = "You died.\n\n " + 
+					"The Darkness shall rise!\n\n " +
+					"[Press SPACE to play again]";
 		
 		
+		if (Input.GetKeyDown(KeyCode.Space)) {
+			Application.LoadLevel("Level1");
+		}
 	}
 	
 	

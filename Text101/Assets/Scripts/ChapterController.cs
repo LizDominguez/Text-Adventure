@@ -34,10 +34,11 @@ public class ChapterController : MonoBehaviour {
 			break;
 
 		case TextController.States.stairs:
-			text.text = "Main Hall";
+			text.text = "Ritual Hall";
 			break;
 
 		case TextController.States.sewer:
+		case TextController.States.the_end:
 			text.text = "Sewers";
 			break;
 
