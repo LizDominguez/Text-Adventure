@@ -42,6 +42,10 @@ public class ChapterController : MonoBehaviour {
 			text.text = "Sewers";
 			break;
 
+		case TextController.States.release_princess1:
+			text.text = "Village";
+			break;
+
 		default:
 			text.text = "Dungeon Entrance";
 			break;

@@ -18,6 +18,7 @@ public class TextController : MonoBehaviour {
 
 		myState = States.intro;
 
+
 		if (Application.loadedLevel == 1) {
 			myState = States.dungeon;
 		}
@@ -135,6 +136,10 @@ public class TextController : MonoBehaviour {
 	
 
 	void intro() {
+
+		if (Application.loadedLevel != 0) {
+			Application.LoadLevel("Level1");
+		}
 
 		text.text = "Welcome to  the Dungeon Crawler Text Adventure Game!\n\n" +
 					"[Press SPACE to begin]";
