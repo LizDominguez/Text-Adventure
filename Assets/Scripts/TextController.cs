@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 
 public class TextController : MonoBehaviour {
@@ -16,14 +17,17 @@ public class TextController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		Scene currentScene = SceneManager.GetActiveScene ();
+		string sceneName = currentScene.name;
+
 		myState = States.intro;
 
 
-		if (Application.loadedLevel == 1) {
+		if (sceneName == "Level2") {
 			myState = States.dungeon;
 		}
 
-		else if (Application.loadedLevel == 2) {
+		else if (sceneName == "Level3") {
 			myState = States.release_princess1;
 		}
 
@@ -116,20 +120,24 @@ public class TextController : MonoBehaviour {
 
 
 	void load_level2() {
+
+		Scene currentScene = SceneManager.GetActiveScene ();
+		string sceneName = currentScene.name;
 		
-		
-		if (Application.loadedLevel == 0) {
-			Application.LoadLevel("Level2");
+		if (sceneName == "Level1") {
+			SceneManager.LoadScene("Level2");
 		}
 
 	}
 
 
 	void load_level3() {
+
+		Scene currentScene = SceneManager.GetActiveScene ();
+		string sceneName = currentScene.name;
 		
-		
-		if (Application.loadedLevel == 1) {
-			Application.LoadLevel("Level3");
+		if (sceneName == "Level2") {
+			SceneManager.LoadScene("Level3");
 		}
 		
 	}
@@ -137,8 +145,11 @@ public class TextController : MonoBehaviour {
 
 	void intro() {
 
-		if (Application.loadedLevel != 0) {
-			Application.LoadLevel("Level1");
+		Scene currentScene = SceneManager.GetActiveScene ();
+		string sceneName = currentScene.name;
+
+		if (sceneName != "Level1") {
+			SceneManager.LoadScene("Level1");
 		}
 
 		text.text = "Welcome to  the Dungeon Crawler Text Adventure Game!\n\n" +
@@ -347,7 +358,7 @@ public class TextController : MonoBehaviour {
 					"[Press SPACE to play again]";
 		
 		if (Input.GetKeyDown(KeyCode.Space)) {
-			Application.LoadLevel("Level1");
+			SceneManager.LoadScene("Level1");
 		}
 		
 	}
@@ -360,7 +371,7 @@ public class TextController : MonoBehaviour {
 		
 		
 		if (Input.GetKeyDown(KeyCode.Space)) {
-			Application.LoadLevel("Level1");
+			SceneManager.LoadScene("Level1");
 		}
 	}
 	
